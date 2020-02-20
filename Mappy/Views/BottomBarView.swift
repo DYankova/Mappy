@@ -29,7 +29,7 @@ class BottomBarView: UIView , UIScrollViewDelegate {
     
     var leftView: UIView = {
         let view = UIView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = Constants.gray
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -45,7 +45,7 @@ class BottomBarView: UIView , UIScrollViewDelegate {
     
     var rightView: UIView = {
         let view = UIView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = Constants.gray
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -60,7 +60,7 @@ class BottomBarView: UIView , UIScrollViewDelegate {
 
         leftView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
         leftView.heightAnchor.constraint(equalToConstant: 85).isActive = true
-        leftView.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        leftView.widthAnchor.constraint(equalToConstant: Constants.viewWidth).isActive = true
         currentCoordView.heightAnchor.constraint(equalToConstant: 85).isActive = true
 
         rightView.leadingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: 0).isActive = true

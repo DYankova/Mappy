@@ -9,10 +9,6 @@
 import UIKit
 import MapKit
 
-struct GlobalVar {
-    static var previousCoordinates = [LocationViewModel]()
-}
-
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
@@ -37,25 +33,27 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         gesture.delegate = self
         
         mapView.delegate = self
-        let longTapGesture = UITapGestureRecognizer(target: self, action: #selector(longTap))
+        let longTapGesture = UITapGestureRecognizer(target: self, action: #selector(selectCoordinate))
         mapView.addGestureRecognizer(longTapGesture)
     }
     
-    @objc func longTap(gestureRecognizer: UILongPressGestureRecognizer) {
+    @objc func selectCoordinate(gestureRecognizer: UILongPressGestureRecognizer) {
         let allAnnotations = mapView.annotations
         mapView.removeAnnotations(allAnnotations)
+        if locationViewModel != nil {
+            addToPrevious(locationViewModel)
+        }
+        
         let location = gestureRecognizer.location(in: mapView)
-        print(location)
+        
         let coordinate = mapView.convert(location, toCoordinateFrom: mapView)
          
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
         mapView.addAnnotation(annotation)
-        print(coordinate)
-        
+ 
         locationViewModel = LocationViewModel(LocationModel(coordinate))
         bottomBarView.currentCoordView.text = locationViewModel.currentCoordinateText
-        addToPrevious(locationViewModel)
         
         bottomBarView.previousCoordView.collectionView.reloadData()
   }
@@ -66,10 +64,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             let translation = gestureRecognizer.translation(in: self.view)
             print(gestureRecognizer.view!.center.y)
 
-            if(gestureRecognizer.view!.center.y < 855) {
-                gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x, y: gestureRecognizer.view!.center.y + translation.y)
+            if(gestureRecognizer.view!.center.y < 855 ) {
+                let y = (gestureRecognizer.view!.center.y + translation.y) > 70 ? gestureRecognizer.view!.center.y + translation.y : 70
+               
+                gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x, y: y)
+                
             } else {
-                gestureRecognizer.view!.center = CGPoint(x:gestureRecognizer.view!.center.x, y: 554)
+                gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x, y: 700)
             }
             gestureRecognizer.setTranslation(CGPoint(x: 0, y: 0), in: self.view)
         }
@@ -77,7 +78,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
     func addToPrevious(_ locationViewModel: LocationViewModel){
         if GlobalVar.previousCoordinates.count == 3 {
-            GlobalVar.previousCoordinates.removeLast()
+            GlobalVar.previousCoordinates.removeFirst()
         }
             GlobalVar.previousCoordinates.append(locationViewModel)
     }
@@ -87,7 +88,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
   extension ViewController: MKMapViewDelegate{
       
       func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-          guard annotation is MKPointAnnotation else { print("no mkpointannotaions"); return nil }
+          guard annotation is MKPointAnnotation else { return nil }
       
           let reuseId = "pin"
           var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
@@ -104,11 +105,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
     
     func setUpViews(){
-        bottomBarView.topAnchor.constraint(equalTo: view.topAnchor, constant: 500).isActive = true
-//        bottomBarView.centerXAnchor.constrant(equalTo: view.centerXAnchor).isActive = true
-        bottomBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        bottomBarView.heightAnchor.constraint(equalToConstant: 85).isActive = true
-        bottomBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        bottomBarView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
+        bottomBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
+        bottomBarView.heightAnchor.constraint(equalToConstant: 90).isActive = true
+        bottomBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -100).isActive = true
     }
     
   }

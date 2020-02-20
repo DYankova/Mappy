@@ -41,7 +41,7 @@ class Cell: UICollectionViewCell {
     
      var leftView: UIView = {
          let view = UIView()
-         view.backgroundColor = .lightGray
+         view.backgroundColor = Constants.gray
          view.translatesAutoresizingMaskIntoConstraints = false
          return view
      }()
@@ -61,7 +61,7 @@ class Cell: UICollectionViewCell {
         addSubview(rightButton)
 
         coordView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-        coordView.widthAnchor.constraint(equalToConstant: 120 ).isActive = true
+        coordView.widthAnchor.constraint(equalToConstant: Constants.viewWidth ).isActive = true
         coordView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
 
         leftButton.topAnchor.constraint(equalTo: topAnchor, constant: 35).isActive = true

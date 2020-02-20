@@ -3,6 +3,37 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "PreviousCoordinatesView.collectionView(_:cellForItemAt:):PreviousCoordinatesView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "GlobalVar.previousCoordinates.count">
+            </PersistentString>
+            <PersistentString
+               value = "GlobalVar.previousCoordinates[GlobalVar.previousCoordinates.count - indexPath.item]">
+            </PersistentString>
+            <PersistentString
+               value = "GlobalVar.previousCoordinates">
+            </PersistentString>
+            <PersistentString
+               value = "GlobalVar.previousCoordinates.count - indexPath.item">
+            </PersistentString>
+            <PersistentString
+               value = "GlobalVar.previousCoordinates[1]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ViewController.selectCoordinate(gestureRecognizer:):ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "locationViewModel.currentCoordinateText">
+            </PersistentString>
+            <PersistentString
+               value = "locationViewModel">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ViewController.addToPrevious(_:):ViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -14,18 +45,20 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "PreviousCoordinatesView.collectionView(_:cellForItemAt:):PreviousCoordinatesView.swift">
+         contextName = "ViewController.wasDragged(_:):ViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "GlobalVar.previousCoordinates">
-            </PersistentString>
-            <PersistentString
-               value = "previousCoordinates">
+               value = "gestureRecognizer.view!.center.y + translation.y">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "ViewController.longTap(gestureRecognizer:):ViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "locationViewModel.currentCoordinateText">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>
