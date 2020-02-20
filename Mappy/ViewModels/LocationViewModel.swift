@@ -21,12 +21,12 @@ class LocationViewModel {
     }
     
     var longitude: Double {
-        return Double((round(10000 * locationModel.coordinates.longitude)/10000))
+        return roundCoordinates(Double(locationModel.coordinates.longitude))
     }
     
     var latitude: Double {
-         return Double((round(10000 * locationModel.coordinates.latitude)/10000))
-     }
+         return roundCoordinates(Double(locationModel.coordinates.latitude))
+    }
     
     var currentCoordinateText: String {
         return " Location:  \n Lat:   \(latitude) \n Lng:  \(longitude)"
@@ -35,4 +35,9 @@ class LocationViewModel {
     var previousCoordinateText: String {
         return " Previous:  \n Lat:   \(latitude) \n Lng:  \(longitude)"
     }
+    
+    private func roundCoordinates(_ coordinate: Double) ->  Double {
+        return Double(round(10000 * coordinate)/10000)
+    }
+    
 }
