@@ -45,12 +45,12 @@ class Cell: UICollectionViewCell {
      }()
      
      lazy var coordView: UILabel = {
-         let textView = UILabel()
-         textView.text = "Previous selected"
-         textView.textColor = .white
-         textView.numberOfLines = 3
-         textView.translatesAutoresizingMaskIntoConstraints = false
-         return textView
+         let label = UILabel()
+         label.text = "Previous selected"
+         label.textColor = Constants.textColor
+         label.numberOfLines = 3
+         label.translatesAutoresizingMaskIntoConstraints = false
+         return label
      }()
     
     private func setupViews() {
@@ -59,19 +59,17 @@ class Cell: UICollectionViewCell {
         addSubview(rightButton)
 
         coordView.topAnchor.constraint(equalTo: topAnchor, constant: 15).isActive = true
-        coordView.widthAnchor.constraint(equalToConstant: 130 ).isActive = true
+        coordView.widthAnchor.constraint(equalToConstant: 130).isActive = true
         coordView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.padding).isActive = true
 
         leftButton.topAnchor.constraint(equalTo: topAnchor, constant: Constants.viewHeight/2 ).isActive = true
-        leftButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize ).isActive = true
+        leftButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
         leftButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize ).isActive = true
         leftButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5).isActive = true
         
         rightButton.topAnchor.constraint(equalTo: topAnchor, constant: Constants.viewHeight/2 ).isActive = true
         rightButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
         rightButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
-        rightButton.leadingAnchor.constraint(equalTo: coordView.trailingAnchor, constant: -Constants.padding).isActive = true
-        
-        
+        rightButton.leadingAnchor.constraint(equalTo: coordView.trailingAnchor, constant: -Constants.padding).isActive = true    
     }
 }

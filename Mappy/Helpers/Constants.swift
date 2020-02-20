@@ -12,7 +12,7 @@ struct Constants {
    
     static let gray = UIColor.darkGray
     
-    static let backgroundColor = UIColor.white
+    static let textColor = UIColor.white
     
     static let padding : CGFloat = 20
     

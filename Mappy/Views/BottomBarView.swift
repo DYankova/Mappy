@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BottomBarView: UIView , UIScrollViewDelegate {
+class BottomBarView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,7 +19,7 @@ class BottomBarView: UIView , UIScrollViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    lazy var previousCoordView : PreviousCoordinatesView  = {
+    lazy var previousCoordView: PreviousCoordinatesView  = {
         let view = PreviousCoordinatesView()
         view.backgroundColor = .clear
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -34,12 +34,12 @@ class BottomBarView: UIView , UIScrollViewDelegate {
     }()
     
    lazy var currentCoordView: UILabel = {
-        let textView = UILabel()
-        textView.text = "Select location"
-        textView.textColor = .white
-        textView.numberOfLines = 3
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        return textView
+        let label = UILabel()
+        label.text = "Select location"
+        label.textColor = Constants.textColor
+        label.numberOfLines = 3
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     var rightView: UIView = {
@@ -56,7 +56,7 @@ class BottomBarView: UIView , UIScrollViewDelegate {
         addSubview(rightView)
         rightView.addSubview(previousCoordView)
 
-        leftView.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.padding).isActive = true
+        leftView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.padding).isActive = true
         leftView.heightAnchor.constraint(equalToConstant: Constants.viewHeight).isActive = true
         leftView.widthAnchor.constraint(equalToConstant: Constants.viewWidth).isActive = true
         

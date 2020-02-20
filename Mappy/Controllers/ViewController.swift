@@ -23,6 +23,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     }()
     
     lazy var previousCoordsCollection = bottomBarView.previousCoordView.collectionView
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,6 +38,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         bottomBarView.heightAnchor.constraint(equalToConstant: Constants.viewHeight).isActive = true
         bottomBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.padding).isActive = true
     }
+    
     private func addGestures(){
         let gesture = UIPanGestureRecognizer(target: self, action:  #selector(moveBottomBar))
         bottomBarView.addGestureRecognizer(gesture)
@@ -56,7 +58,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         
         let location = gestureRecognizer.location(in: mapView)
-        
         let coordinate = mapView.convert(location, toCoordinateFrom: mapView)
          
         let annotation = MKPointAnnotation()
@@ -89,7 +90,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             GlobalVar.previousCoordinates.removeFirst()
         }
             GlobalVar.previousCoordinates.append(locationViewModel)
-            previousCoordsCollection.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top,animated: true)
+            previousCoordsCollection.scrollToItem(at: IndexPath(row: 0, section: 0), at: .bottom,animated: true)
     }
     
   }

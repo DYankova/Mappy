@@ -14,11 +14,11 @@ class PreviousCoordinatesView: UIView, UICollectionViewDataSource, UICollectionV
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         layout.scrollDirection = .horizontal
-        cv.translatesAutoresizingMaskIntoConstraints = false
         cv.delegate = self
         cv.dataSource = self
         cv.backgroundColor = .clear
         cv.register(Cell.self, forCellWithReuseIdentifier: "Cell")
+        cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
     }()
     
@@ -27,19 +27,19 @@ class PreviousCoordinatesView: UIView, UICollectionViewDataSource, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
-            cell.backgroundColor = Constants.gray
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
+        cell.backgroundColor = Constants.gray
         if GlobalVar.previousCoordinates.count >= 1 {
             let reversedNames : [LocationViewModel] = Array(GlobalVar.previousCoordinates.reversed())
             cell.coordView.text = reversedNames[indexPath.item].previousCoordinateText
-        } 
-            cell.leftButton.addTarget(self, action: #selector(moveToNextCoord), for: .touchUpInside)
-            cell.rightButton.addTarget(self, action: #selector(moveToPreviousCoord), for: .touchUpInside)
-            return cell
+        }
+        cell.leftButton.addTarget(self, action: #selector(moveToNextCoord), for: .touchUpInside)
+        cell.rightButton.addTarget(self, action: #selector(moveToPreviousCoord), for: .touchUpInside)
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-           return CGSize(width: self.collectionView.frame.size.width , height: self.collectionView.frame.size.height)
+       return CGSize(width: self.collectionView.frame.size.width , height: self.collectionView.frame.size.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -78,6 +78,5 @@ class PreviousCoordinatesView: UIView, UICollectionViewDataSource, UICollectionV
         collectionView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         collectionView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-
     }
 }
