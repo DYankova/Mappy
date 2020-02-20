@@ -13,6 +13,7 @@ class BottomBarView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
+        self.layer.cornerRadius  = 50
     }
     
     required init?(coder: NSCoder) {
@@ -65,10 +66,10 @@ class BottomBarView: UIView {
         rightView.leadingAnchor.constraint(equalTo: leftView.trailingAnchor).isActive = true
         rightView.heightAnchor.constraint(equalTo: leftView.heightAnchor).isActive = true
         rightView.widthAnchor.constraint(equalToConstant: 150).isActive = true
-     
+        
+        previousCoordView.topAnchor.constraint(equalTo: rightView.topAnchor).isActive = true
         previousCoordView.leadingAnchor.constraint(equalTo: rightView.leadingAnchor).isActive = true
         previousCoordView.trailingAnchor.constraint(equalTo: rightView.trailingAnchor).isActive = true
-        previousCoordView.topAnchor.constraint(equalTo: rightView.topAnchor).isActive = true
         previousCoordView.bottomAnchor.constraint(equalTo: rightView.bottomAnchor).isActive = true
     }
        

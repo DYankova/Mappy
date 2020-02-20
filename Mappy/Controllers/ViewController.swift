@@ -33,20 +33,21 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private func setupViews() {
         view.addSubview(bottomBarView)
-        bottomBarView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: Constants.bottomBarPadding).isActive = true
+        
         bottomBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
-        bottomBarView.heightAnchor.constraint(equalToConstant: Constants.viewHeight).isActive = true
         bottomBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.padding).isActive = true
+        bottomBarView.heightAnchor.constraint(equalToConstant: Constants.viewHeight).isActive = true
+        bottomBarView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: Constants.bottomBarPadding).isActive = true
     }
     
     private func addGestures(){
-        let gesture = UIPanGestureRecognizer(target: self, action:  #selector(moveBottomBar))
-        bottomBarView.addGestureRecognizer(gesture)
-        gesture.delegate = self
+        let moveBarGesture = UIPanGestureRecognizer(target: self, action:  #selector(moveBottomBar))
+        bottomBarView.addGestureRecognizer(moveBarGesture)
+        moveBarGesture.delegate = self
         
+        let selectCoordGesture = UITapGestureRecognizer(target: self, action: #selector(selectCoordinate))
+        mapView.addGestureRecognizer(selectCoordGesture)
         mapView.delegate = self
-        let longTapGesture = UITapGestureRecognizer(target: self, action: #selector(selectCoordinate))
-        mapView.addGestureRecognizer(longTapGesture)
     }
     
     @objc private func selectCoordinate(gestureRecognizer: UITapGestureRecognizer) {
