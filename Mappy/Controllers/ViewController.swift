@@ -80,7 +80,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
                 let y = (gestureRecognizer.view!.center.y + translation.y) > Constants.viewHeight ? gestureRecognizer.view!.center.y + translation.y : Constants.viewHeight
                 gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x, y: y)
             } else {
-                gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x, y: 700)
+                gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x, y: 855)
             }
             gestureRecognizer.setTranslation(CGPoint(x: 0, y: 0), in: self.view)
         }

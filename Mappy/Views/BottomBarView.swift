@@ -65,7 +65,7 @@ class BottomBarView: UIView {
 
         rightView.leadingAnchor.constraint(equalTo: leftView.trailingAnchor).isActive = true
         rightView.heightAnchor.constraint(equalTo: leftView.heightAnchor).isActive = true
-        rightView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        rightView.widthAnchor.constraint(equalToConstant: Constants.viewWidth + 2 * Constants.buttonSize).isActive = true
         
         previousCoordView.topAnchor.constraint(equalTo: rightView.topAnchor).isActive = true
         previousCoordView.leadingAnchor.constraint(equalTo: rightView.leadingAnchor).isActive = true
