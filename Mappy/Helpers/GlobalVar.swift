@@ -10,12 +10,4 @@ import UIKit
 
 struct GlobalVar {
     static var previousCoordinates = [LocationViewModel]()
-
-    func reversedNames() -> [LocationViewModel] {
-        let reversedNames : [LocationViewModel] = Array(GlobalVar.previousCoordinates.reversed())
-        return reversedNames
-    }
-
-    
 }
-

@@ -22,13 +22,23 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         return view
     }()
     
+    lazy var previousCoordsCollection = bottomBarView.previousCoordView.collectionView
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupViews()
+        addGestures()
+    }
+    
+    private func setupViews() {
         view.addSubview(bottomBarView)
-        bottomBarView.layer.cornerRadius = 70
-        setUpViews()
-     
-      let gesture = UIPanGestureRecognizer(target: self, action:  #selector(wasDragged))
+        bottomBarView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: Constants.bottomBarPadding).isActive = true
+        bottomBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
+        bottomBarView.heightAnchor.constraint(equalToConstant: Constants.viewHeight).isActive = true
+        bottomBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.padding).isActive = true
+    }
+    private func addGestures(){
+        let gesture = UIPanGestureRecognizer(target: self, action:  #selector(moveBottomBar))
         bottomBarView.addGestureRecognizer(gesture)
         gesture.delegate = self
         
@@ -37,9 +47,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         mapView.addGestureRecognizer(longTapGesture)
     }
     
-    @objc func selectCoordinate(gestureRecognizer: UILongPressGestureRecognizer) {
+    @objc private func selectCoordinate(gestureRecognizer: UITapGestureRecognizer) {
         let allAnnotations = mapView.annotations
         mapView.removeAnnotations(allAnnotations)
+        
         if locationViewModel != nil {
             addToPrevious(locationViewModel)
         }
@@ -51,24 +62,21 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
         mapView.addAnnotation(annotation)
- 
         locationViewModel = LocationViewModel(LocationModel(coordinate))
-        bottomBarView.currentCoordView.text = locationViewModel.currentCoordinateText
-        
-        bottomBarView.previousCoordView.collectionView.reloadData()
-  }
+        updateBottomBar()
+    }
     
-    @objc func wasDragged(_ gestureRecognizer: UIPanGestureRecognizer) {
+    private func updateBottomBar(){
+        bottomBarView.currentCoordView.text = locationViewModel.currentCoordinateText
+        previousCoordsCollection.reloadData()
+    }
+    
+    @objc func moveBottomBar(_ gestureRecognizer: UIPanGestureRecognizer) {
         if gestureRecognizer.state == UIGestureRecognizer.State.began || gestureRecognizer.state == UIGestureRecognizer.State.changed {
-
             let translation = gestureRecognizer.translation(in: self.view)
-            print(gestureRecognizer.view!.center.y)
-
-            if(gestureRecognizer.view!.center.y < 855 ) {
-                let y = (gestureRecognizer.view!.center.y + translation.y) > 70 ? gestureRecognizer.view!.center.y + translation.y : 70
-               
+            if gestureRecognizer.view!.center.y < 855 {
+                let y = (gestureRecognizer.view!.center.y + translation.y) > Constants.viewHeight ? gestureRecognizer.view!.center.y + translation.y : Constants.viewHeight
                 gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x, y: y)
-                
             } else {
                 gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x, y: 700)
             }
@@ -76,16 +84,17 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
 
-    func addToPrevious(_ locationViewModel: LocationViewModel){
+    private func addToPrevious(_ locationViewModel: LocationViewModel){
         if GlobalVar.previousCoordinates.count == 3 {
             GlobalVar.previousCoordinates.removeFirst()
         }
             GlobalVar.previousCoordinates.append(locationViewModel)
+            previousCoordsCollection.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top,animated: true)
     }
     
   }
 
-  extension ViewController: MKMapViewDelegate{
+  extension ViewController: MKMapViewDelegate {
       
       func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
           guard annotation is MKPointAnnotation else { return nil }
@@ -96,19 +105,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
           if pinView == nil {
               pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
               pinView!.pinTintColor = UIColor.red
-          }
-          else {
+          } else {
               pinView!.annotation = annotation
           }
           return pinView
       }
-
-    
-    func setUpViews(){
-        bottomBarView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
-        bottomBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
-        bottomBarView.heightAnchor.constraint(equalToConstant: 90).isActive = true
-        bottomBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -100).isActive = true
-    }
     
   }

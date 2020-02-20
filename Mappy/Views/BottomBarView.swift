@@ -12,13 +12,12 @@ class BottomBarView: UIView , UIScrollViewDelegate {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+        setupViews()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     lazy var previousCoordView : PreviousCoordinatesView  = {
         let view = PreviousCoordinatesView()
@@ -27,14 +26,14 @@ class BottomBarView: UIView , UIScrollViewDelegate {
         return view
     }()
     
-    var leftView: UIView = {
+    lazy var leftView: UIView = {
         let view = UIView()
         view.backgroundColor = Constants.gray
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    var currentCoordView: UILabel = {
+   lazy var currentCoordView: UILabel = {
         let textView = UILabel()
         textView.text = "Select location"
         textView.textColor = .white
@@ -50,25 +49,23 @@ class BottomBarView: UIView , UIScrollViewDelegate {
         return view
     }()
 
-    func setup(){
+    private func setupViews(){
         addSubview(leftView)
-        leftView.bringSubviewToFront(currentCoordView)
         leftView.addSubview(currentCoordView)
         
         addSubview(rightView)
         rightView.addSubview(previousCoordView)
 
-        leftView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
-        leftView.heightAnchor.constraint(equalToConstant: 85).isActive = true
+        leftView.leftAnchor.constraint(equalTo: leftAnchor, constant: Constants.padding).isActive = true
+        leftView.heightAnchor.constraint(equalToConstant: Constants.viewHeight).isActive = true
         leftView.widthAnchor.constraint(equalToConstant: Constants.viewWidth).isActive = true
-        currentCoordView.heightAnchor.constraint(equalToConstant: 85).isActive = true
+        
+        currentCoordView.heightAnchor.constraint(equalTo: leftView.heightAnchor).isActive = true
 
-        rightView.leadingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: 0).isActive = true
-        rightView.heightAnchor.constraint(equalToConstant: 85).isActive = true
-        rightView.widthAnchor.constraint(equalToConstant: 140).isActive = true
-        
-        rightView.bringSubviewToFront(previousCoordView)
-        
+        rightView.leadingAnchor.constraint(equalTo: leftView.trailingAnchor).isActive = true
+        rightView.heightAnchor.constraint(equalTo: leftView.heightAnchor).isActive = true
+        rightView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+     
         previousCoordView.leadingAnchor.constraint(equalTo: rightView.leadingAnchor).isActive = true
         previousCoordView.trailingAnchor.constraint(equalTo: rightView.trailingAnchor).isActive = true
         previousCoordView.topAnchor.constraint(equalTo: rightView.topAnchor).isActive = true

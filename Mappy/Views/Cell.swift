@@ -22,7 +22,6 @@ class Cell: UICollectionViewCell {
     lazy var leftButton: UIButton = {
         let btn = UIButton()
         if let image = UIImage(named: "left-arrow") {
-//            let tintedImage = image.withRenderingMode(.alwaysTemplate)
             btn.setImage(image, for: .normal)
         }
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -32,21 +31,20 @@ class Cell: UICollectionViewCell {
     lazy var rightButton: UIButton = {
         let btn = UIButton()
         if let image = UIImage(named: "right-arrow") {
-//            let tintedImage = image.withRenderingMode(.alwaysTemplate)
             btn.setImage(image, for: .normal)
         }
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
     
-     var leftView: UIView = {
+     lazy var leftView: UIView = {
          let view = UIView()
          view.backgroundColor = Constants.gray
          view.translatesAutoresizingMaskIntoConstraints = false
          return view
      }()
      
-     var coordView: UILabel = {
+     lazy var coordView: UILabel = {
          let textView = UILabel()
          textView.text = "Previous selected"
          textView.textColor = .white
@@ -55,24 +53,24 @@ class Cell: UICollectionViewCell {
          return textView
      }()
     
-    func setupViews() {
+    private func setupViews() {
         addSubview(coordView)
         addSubview(leftButton)
         addSubview(rightButton)
 
-        coordView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-        coordView.widthAnchor.constraint(equalToConstant: Constants.viewWidth ).isActive = true
-        coordView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
+        coordView.topAnchor.constraint(equalTo: topAnchor, constant: 15).isActive = true
+        coordView.widthAnchor.constraint(equalToConstant: 130 ).isActive = true
+        coordView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.padding).isActive = true
 
-        leftButton.topAnchor.constraint(equalTo: topAnchor, constant: 35).isActive = true
-        leftButton.widthAnchor.constraint(equalToConstant: 15 ).isActive = true
-        leftButton.heightAnchor.constraint(equalToConstant: 15 ).isActive = true
+        leftButton.topAnchor.constraint(equalTo: topAnchor, constant: Constants.viewHeight/2 ).isActive = true
+        leftButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize ).isActive = true
+        leftButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize ).isActive = true
         leftButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5).isActive = true
         
-        rightButton.topAnchor.constraint(equalTo: topAnchor, constant: 35).isActive = true
-        rightButton.widthAnchor.constraint(equalToConstant: 15 ).isActive = true
-        rightButton.heightAnchor.constraint(equalToConstant: 15 ).isActive = true
-        rightButton.leadingAnchor.constraint(equalTo: coordView.trailingAnchor, constant: -20).isActive = true
+        rightButton.topAnchor.constraint(equalTo: topAnchor, constant: Constants.viewHeight/2 ).isActive = true
+        rightButton.widthAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
+        rightButton.heightAnchor.constraint(equalToConstant: Constants.buttonSize).isActive = true
+        rightButton.leadingAnchor.constraint(equalTo: coordView.trailingAnchor, constant: -Constants.padding).isActive = true
         
         
     }

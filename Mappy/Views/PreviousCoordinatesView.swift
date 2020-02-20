@@ -33,47 +33,47 @@ class PreviousCoordinatesView: UIView, UICollectionViewDataSource, UICollectionV
             let reversedNames : [LocationViewModel] = Array(GlobalVar.previousCoordinates.reversed())
             cell.coordView.text = reversedNames[indexPath.item].previousCoordinateText
         } 
-            cell.leftButton.addTarget(self, action: #selector(moveToPrevious), for: .touchUpInside)
-            cell.rightButton.addTarget(self, action: #selector(moveToNext), for: .touchUpInside)
+            cell.leftButton.addTarget(self, action: #selector(moveToNextCoord), for: .touchUpInside)
+            cell.rightButton.addTarget(self, action: #selector(moveToPreviousCoord), for: .touchUpInside)
             return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
            return CGSize(width: self.collectionView.frame.size.width , height: self.collectionView.frame.size.height)
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
     
-    @objc func moveToPrevious(_ sender: Any) {
+    @objc private func moveToPreviousCoord(_ sender: Any) {
         let collectionBounds = self.collectionView.bounds
         let contentOffset = CGFloat(floor(self.collectionView.contentOffset.x - collectionBounds.size.width))
         self.moveCollectionToFrame(contentOffset: contentOffset)
     }
 
-     @objc func moveToNext(_ sender: Any) {
+     @objc private func moveToNextCoord(_ sender: Any) {
         let collectionBounds = self.collectionView.bounds
         let contentOffset = CGFloat(floor(self.collectionView.contentOffset.x + collectionBounds.size.width))
         self.moveCollectionToFrame(contentOffset: contentOffset)
     }
 
-    func moveCollectionToFrame(contentOffset : CGFloat) {
+    private func moveCollectionToFrame(contentOffset : CGFloat) {
         let frame: CGRect = CGRect(x : contentOffset ,y : self.collectionView.contentOffset.y ,width : self.collectionView.frame.width,height : self.collectionView.frame.height)
         self.collectionView.scrollRectToVisible(frame, animated: true)
     }
    
     override init(frame: CGRect) {
-          super.init(frame: frame)
-         
-         addSubview(collectionView)
-         setup()
-      }
-      
-      required init?(coder: NSCoder) {
-          fatalError("init(coder:) has not been implemented")
-      }
+        super.init(frame: frame)
+        setupCollectionView()
+    }
+  
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
-    func setup(){
+   private func setupCollectionView(){
+        addSubview(collectionView)
         collectionView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         collectionView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         collectionView.topAnchor.constraint(equalTo: topAnchor).isActive = true

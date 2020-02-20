@@ -10,8 +10,6 @@ import UIKit
 
 struct Constants {
    
-    static let cellHeight: CGFloat = 40
-    
     static let gray = UIColor.darkGray
     
     static let backgroundColor = UIColor.white
@@ -19,4 +17,10 @@ struct Constants {
     static let padding : CGFloat = 20
     
     static let viewWidth : CGFloat = 120
+    
+    static let viewHeight : CGFloat = 90
+    
+    static let buttonSize : CGFloat = 15
+    
+    static let bottomBarPadding : CGFloat = -100
 }

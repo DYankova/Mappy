@@ -17,4 +17,3 @@ struct LocationModel {
         self.coordinates = coordinates
     }
 }
-

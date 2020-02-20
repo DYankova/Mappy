@@ -21,11 +21,11 @@ class LocationViewModel {
     }
     
     var longitude: Double {
-        return Double((round(1000 * locationModel.coordinates.longitude)/1000))
+        return Double((round(10000 * locationModel.coordinates.longitude)/10000))
     }
     
     var latitude: Double {
-         return Double((round(1000 * locationModel.coordinates.latitude)/1000))
+         return Double((round(10000 * locationModel.coordinates.latitude)/10000))
      }
     
     var currentCoordinateText: String {
