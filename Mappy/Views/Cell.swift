@@ -48,7 +48,7 @@ class Cell: UICollectionViewCell {
      
      var coordView: UILabel = {
          let textView = UILabel()
-         textView.text = "Long press to select location"
+         textView.text = "Previous selected"
          textView.textColor = .white
          textView.numberOfLines = 3
          textView.translatesAutoresizingMaskIntoConstraints = false
@@ -60,7 +60,7 @@ class Cell: UICollectionViewCell {
         addSubview(leftButton)
         addSubview(rightButton)
 
-        coordView.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
+        coordView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
         coordView.widthAnchor.constraint(equalToConstant: 120 ).isActive = true
         coordView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
 

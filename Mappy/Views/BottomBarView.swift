@@ -36,7 +36,7 @@ class BottomBarView: UIView , UIScrollViewDelegate {
     
     var currentCoordView: UILabel = {
         let textView = UILabel()
-        textView.text = "Long press to select location"
+        textView.text = "Select location"
         textView.textColor = .white
         textView.numberOfLines = 3
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -63,7 +63,7 @@ class BottomBarView: UIView , UIScrollViewDelegate {
         leftView.widthAnchor.constraint(equalToConstant: 120).isActive = true
         currentCoordView.heightAnchor.constraint(equalToConstant: 85).isActive = true
 
-        rightView.leadingAnchor.constraint(equalTo: leftView.trailingAnchor).isActive = true
+        rightView.leadingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: 0).isActive = true
         rightView.heightAnchor.constraint(equalToConstant: 85).isActive = true
         rightView.widthAnchor.constraint(equalToConstant: 140).isActive = true
         

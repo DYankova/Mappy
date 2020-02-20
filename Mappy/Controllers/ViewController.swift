@@ -37,7 +37,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         gesture.delegate = self
         
         mapView.delegate = self
-        let longTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTap))
+        let longTapGesture = UITapGestureRecognizer(target: self, action: #selector(longTap))
         mapView.addGestureRecognizer(longTapGesture)
     }
     
@@ -77,7 +77,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 
     func addToPrevious(_ locationViewModel: LocationViewModel){
         if GlobalVar.previousCoordinates.count == 3 {
-            GlobalVar.previousCoordinates.removeFirst()
+            GlobalVar.previousCoordinates.removeLast()
         }
             GlobalVar.previousCoordinates.append(locationViewModel)
     }
@@ -108,7 +108,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
 //        bottomBarView.centerXAnchor.constrant(equalTo: view.centerXAnchor).isActive = true
         bottomBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         bottomBarView.heightAnchor.constraint(equalToConstant: 85).isActive = true
-//        bottomBarView.widthAnchor.constraint(equalToConstant: view!.widthAnchor).isActive = true
+        bottomBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
     
   }
