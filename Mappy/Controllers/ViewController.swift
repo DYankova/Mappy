@@ -76,11 +76,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     @objc func moveBottomBar(_ gestureRecognizer: UIPanGestureRecognizer) {
         if gestureRecognizer.state == UIGestureRecognizer.State.began || gestureRecognizer.state == UIGestureRecognizer.State.changed {
             let translation = gestureRecognizer.translation(in: self.view)
-            if gestureRecognizer.view!.center.y < 855 {
+            let maxY = view.frame.maxY
+            if gestureRecognizer.view!.center.y < maxY {
                 let y = (gestureRecognizer.view!.center.y + translation.y) > Constants.viewHeight ? gestureRecognizer.view!.center.y + translation.y : Constants.viewHeight
                 gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x, y: y)
             } else {
-                gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x, y: 855)
+                gestureRecognizer.view!.center = CGPoint(x: gestureRecognizer.view!.center.x, y: maxY)
             }
             gestureRecognizer.setTranslation(CGPoint(x: 0, y: 0), in: self.view)
         }
