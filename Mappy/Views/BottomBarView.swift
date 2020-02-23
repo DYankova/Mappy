@@ -13,7 +13,6 @@ class BottomBarView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        self.layer.cornerRadius  = 50
     }
     
     required init?(coder: NSCoder) {

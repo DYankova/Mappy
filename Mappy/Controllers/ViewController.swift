@@ -34,7 +34,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     private func setupViews() {
         view.addSubview(bottomBarView)
         
-        bottomBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40).isActive = true
+        bottomBarView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Constants.bottomBarLeading).isActive = true
         bottomBarView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Constants.padding).isActive = true
         bottomBarView.heightAnchor.constraint(equalToConstant: Constants.viewHeight).isActive = true
         bottomBarView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: Constants.bottomBarPadding).isActive = true
@@ -74,7 +74,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @objc func moveBottomBar(_ gestureRecognizer: UIPanGestureRecognizer) {
-        if gestureRecognizer.state == UIGestureRecognizer.State.began || gestureRecognizer.state == UIGestureRecognizer.State.changed {
+        if gestureRecognizer.state == .began || gestureRecognizer.state == .changed {
             let translation = gestureRecognizer.translation(in: self.view)
             let maxY = view.frame.maxY
             if gestureRecognizer.view!.center.y < maxY {
@@ -88,11 +88,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     private func addToPrevious(_ locationViewModel: LocationViewModel){
-        if GlobalVar.previousCoordinates.count == 3 {
+        let previousCoordCount = 3
+        if GlobalVar.previousCoordinates.count == previousCoordCount {
             GlobalVar.previousCoordinates.removeFirst()
         }
             GlobalVar.previousCoordinates.append(locationViewModel)
-            previousCoordsCollection.scrollToItem(at: IndexPath(row: 0, section: 0), at: .bottom,animated: true)
+            previousCoordsCollection.scrollToItem(at: IndexPath(row: 0, section: 0), at: .bottom, animated: true)
     }
     
   }
@@ -107,7 +108,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
           
           if pinView == nil {
               pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-              pinView!.pinTintColor = UIColor.red
+              pinView!.pinTintColor = .red
           } else {
               pinView!.annotation = annotation
           }

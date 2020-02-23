@@ -59,7 +59,7 @@ class PreviousCoordinatesView: UIView, UICollectionViewDataSource, UICollectionV
     }
 
     private func moveCollectionToFrame(contentOffset : CGFloat) {
-        let frame: CGRect = CGRect(x : contentOffset ,y : self.collectionView.contentOffset.y ,width : self.collectionView.frame.width,height : self.collectionView.frame.height)
+        let frame: CGRect = CGRect(x : contentOffset, y : self.collectionView.contentOffset.y ,width : self.collectionView.frame.width,height : self.collectionView.frame.height)
         self.collectionView.scrollRectToVisible(frame, animated: true)
     }
    

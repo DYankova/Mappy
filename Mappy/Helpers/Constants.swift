@@ -23,4 +23,8 @@ struct Constants {
     static let buttonSize : CGFloat = 15
     
     static let bottomBarPadding : CGFloat = -100
+    
+    static let bottomBarLeading : CGFloat = 40
+    
+    static let coordViewLength : CGFloat = 130
 }

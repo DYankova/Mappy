@@ -59,7 +59,7 @@ class Cell: UICollectionViewCell {
         addSubview(rightButton)
 
         coordView.topAnchor.constraint(equalTo: topAnchor, constant: Constants.buttonSize).isActive = true
-        coordView.widthAnchor.constraint(equalToConstant: 130).isActive = true
+        coordView.widthAnchor.constraint(equalToConstant: Constants.coordViewLength).isActive = true
         coordView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Constants.padding).isActive = true
 
         leftButton.topAnchor.constraint(equalTo: topAnchor, constant: Constants.viewHeight/2 ).isActive = true
