@@ -45,27 +45,31 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         bottomBarView.addGestureRecognizer(moveBarGesture)
         moveBarGesture.delegate = self
         
-        let selectCoordGesture = UITapGestureRecognizer(target: self, action: #selector(selectCoordinate))
+        let selectCoordGesture = UILongPressGestureRecognizer(target: self, action: #selector(selectCoordinate))
         mapView.addGestureRecognizer(selectCoordGesture)
         mapView.delegate = self
     }
     
-    @objc private func selectCoordinate(gestureRecognizer: UITapGestureRecognizer) {
-        let allAnnotations = mapView.annotations
-        mapView.removeAnnotations(allAnnotations)
+    @objc private func selectCoordinate(gestureRecognizer: UILongPressGestureRecognizer) {
+
+        if (gestureRecognizer.state == .ended) {
         
-        if locationViewModel != nil {
-            addToPrevious(locationViewModel)
+            let allAnnotations = mapView.annotations
+            mapView.removeAnnotations(allAnnotations)
+            
+            if locationViewModel != nil {
+                addToPrevious(locationViewModel)
+            }
+            
+            let location = gestureRecognizer.location(in: mapView)
+            let coordinate = mapView.convert(location, toCoordinateFrom: mapView)
+             
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            mapView.addAnnotation(annotation)
+            locationViewModel = LocationViewModel(LocationModel(coordinate))
+            updateBottomBar()
         }
-        
-        let location = gestureRecognizer.location(in: mapView)
-        let coordinate = mapView.convert(location, toCoordinateFrom: mapView)
-         
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = coordinate
-        mapView.addAnnotation(annotation)
-        locationViewModel = LocationViewModel(LocationModel(coordinate))
-        updateBottomBar()
     }
     
     private func updateBottomBar(){
